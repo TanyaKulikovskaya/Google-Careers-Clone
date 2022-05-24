@@ -1,6 +1,13 @@
 <template>
   <the-navigation />
-  <h1>Title</h1>
+  <div class="container mx-auto px-2">
+    <h1 class="mt-16 py-3">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat, veniam
+      dolorum accusamus architecto voluptatibus ullam praesentium facilis libero
+      vitae quae iure iusto earum fugit repudiandae consequuntur harum totam eos
+      laudantium!
+    </h1>
+  </div>
 </template>
 
 <script>
