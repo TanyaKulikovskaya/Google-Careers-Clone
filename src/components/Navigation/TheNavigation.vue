@@ -1,8 +1,8 @@
 <template>
   <header class="w-full">
-    <div class="fixed top-0 left-0 w-full h-16 bg-white">
+    <div class="fixed top-0 left-0 w-full h-32 bg-white">
       <div
-        class="flex flex-nowrap h-full px-8 py-2 border-b border-solid border-b-gray-300"
+        class="flex flex-nowrap h-16 px-8 py-2 border-b border-solid border-b-gray-300"
       >
         <router-link class="flex items-center h-full mr-12 text-xl">
           Good Careers
@@ -32,6 +32,7 @@
           />
         </div>
       </div>
+      <sub-navigation v-if="isLoggedIn" data-test="sub-navigation" />
     </div>
   </header>
 </template>
@@ -39,11 +40,14 @@
 <script>
 import ActionButton from '@/components/Shared/ActionButton.vue'
 import ProfileAvatar from '@/components/Navigation/ProfileAvatar.vue'
+import SubNavigation from '@/components/Navigation/SubNavigation.vue'
+
 export default {
   name: 'TheNavigation',
   components: {
     ActionButton,
     ProfileAvatar,
+    SubNavigation,
   },
   data() {
     return {
