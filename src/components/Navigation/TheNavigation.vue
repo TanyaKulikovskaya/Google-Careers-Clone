@@ -1,10 +1,10 @@
 <template>
-  <header class="w-full">
-    <div class="fixed top-0 left-0 w-full h-32 bg-white">
+  <header class="w-full" :class="isLoggedIn ? 'h-32' : 'h-16'">
+    <div class="fixed top-0 left-0 w-full bg-white">
       <nav
-        class="flex items-center justify-between flex-nowrap h-16 px-8 py-2 border-b border-solid border-b-gray-300"
+        class="flex items-center flex-nowrap h-16 px-8 py-2 border-b border-solid border-b-gray-300"
       >
-        <div class="flex items-center md:hidden" @click="toggleMenu">
+        <div class="flex items-center md:hidden mr-4" @click="toggleMenu">
           <button
             type="button"
             class="text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500"
@@ -18,8 +18,14 @@
             </svg>
           </button>
         </div>
-        <router-link class="flex items-center h-full text-xl md:mr-12">
-          Good Careers
+        <router-link
+          class="flex items-center h-full text-xl md:mr-12 flex-grow md:flex-grow-0"
+        >
+          <span class="text-sky-500">G</span>
+          <span class="text-rose-600">o</span>
+          <span class="text-yellow-600">o</span>
+          <span class="text-emerald-600 mr-1">D</span>
+          <span class="text-gray-600">Careers</span>
         </router-link>
         <ul
           :class="

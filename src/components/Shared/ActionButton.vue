@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
 button {
-  @apply px-6 py-2 border-0 rounded;
+  @apply px-4 py-2 border-0 rounded text-sm;
 }
 
 .primary {
