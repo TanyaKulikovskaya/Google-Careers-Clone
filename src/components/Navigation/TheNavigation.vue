@@ -1,27 +1,49 @@
 <template>
   <header class="w-full">
     <div class="fixed top-0 left-0 w-full h-32 bg-white">
-      <div
-        class="flex flex-nowrap h-16 px-8 py-2 border-b border-solid border-b-gray-300"
+      <nav
+        class="flex items-center justify-between flex-nowrap h-16 px-8 py-2 border-b border-solid border-b-gray-300"
       >
-        <router-link class="flex items-center h-full mr-12 text-xl">
+        <div class="flex items-center md:hidden" @click="toggleMenu">
+          <button
+            type="button"
+            class="text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500"
+            aria-label="toggle menu"
+          >
+            <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+              <path
+                fill-rule="evenodd"
+                d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <router-link class="flex items-center h-full text-xl md:mr-12">
           Good Careers
         </router-link>
-        <nav class="h-full text-sm">
-          <ul class="flex h-full p-0 m-0 list-none">
-            <li
-              v-for="menuItem in menuItems"
-              :key="menuItem.text"
-              class="h-full mr-9 last:mr-0"
-              data-test="menu-list-item"
+        <ul
+          :class="
+            showMenu
+              ? 'absolute w-full top-16 left-0 z-10 bg-gray-100'
+              : 'hidden'
+          "
+          class="text-sm md:flex md:items-center md:flex-grow md:space-x-6"
+        >
+          <li
+            v-for="menuItem in menuItems"
+            :key="menuItem.text"
+            :class="showMenu ? 'p-3' : 'pt-1'"
+            data-test="menu-list-item"
+          >
+            <router-link
+              class="flex items-center h-full text-gray-800 hover:text-gray-500"
+              @click="closeMenu"
             >
-              <router-link class="flex items-center h-full">
-                {{ menuItem.text }}
-              </router-link>
-            </li>
-          </ul>
-        </nav>
-        <div class="flex items-center h-full ml-auto">
+              {{ menuItem.text }}
+            </router-link>
+          </li>
+        </ul>
+        <div class="flex items-center h-full">
           <profile-avatar v-if="isLoggedIn" data-test="profile-avatar" />
           <action-button
             v-else
@@ -31,7 +53,7 @@
             @click="loginUser"
           />
         </div>
-      </div>
+      </nav>
       <sub-navigation v-if="isLoggedIn" data-test="sub-navigation" />
     </div>
   </header>
@@ -59,11 +81,20 @@ export default {
         { text: 'Jobs' },
       ],
       isLoggedIn: false,
+      showMenu: false,
     }
   },
   methods: {
     loginUser() {
       this.isLoggedIn = true
+    },
+    toggleMenu() {
+      this.showMenu = !this.showMenu
+    },
+    closeMenu() {
+      if (this.showMenu) {
+        this.showMenu = false
+      }
     },
   },
 }
