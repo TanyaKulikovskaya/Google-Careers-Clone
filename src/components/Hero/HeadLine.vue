@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1 class="font-bold text-5xl tracking-tight mb-10">
+    <h1 class="font-bold text-6xl tracking-tight mb-10">
       <span class="block mb-3" :class="action.class">
         {{ action.value }}
       </span>
       <span>for everyone</span>
     </h1>
-    <h2 class="text-3xl font-light">Find your next job at GooD.</h2>
+    <h2 class="text-3xl font-light mb-12">Find your next job at GooD.</h2>
   </div>
 </template>
 

@@ -19,6 +19,7 @@
           </button>
         </div>
         <router-link
+          to="/"
           class="flex items-center h-full text-xl md:mr-12 flex-grow md:flex-grow-0"
         >
           <span class="text-sky-500">G</span>
@@ -42,6 +43,7 @@
             data-test="menu-list-item"
           >
             <router-link
+              :to="menuItem.url"
               class="flex items-center h-full text-gray-800 hover:text-gray-500"
               @click="closeMenu"
             >
@@ -80,11 +82,11 @@ export default {
   data() {
     return {
       menuItems: [
-        { text: 'Teams' },
-        { text: 'Locations' },
-        { text: 'How we hire' },
-        { text: 'Students' },
-        { text: 'Jobs' },
+        { text: 'Teams', url: '/' },
+        { text: 'Locations', url: '/' },
+        { text: 'How we hire', url: '/' },
+        { text: 'Students', url: '/' },
+        { text: 'Jobs', url: '/job/results' },
       ],
       isLoggedIn: false,
       showMenu: false,

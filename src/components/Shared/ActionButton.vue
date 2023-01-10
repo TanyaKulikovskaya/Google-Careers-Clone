@@ -1,5 +1,5 @@
 <template>
-  <button :class="type" @click="handleClick">
+  <button :class="type" @click.prevent="handleClick">
     {{ text }}
   </button>
 </template>
@@ -32,11 +32,11 @@ export default {
 
 <style scoped>
 button {
-  @apply px-4 py-2 border-0 rounded text-sm;
+  @apply px-4 py-2 text-sm;
 }
 
 .primary {
-  @apply text-white bg-blue-500 hover:bg-blue-400 hover:shadow-lg hover:shadow-blue-400/60;
+  @apply text-white rounded bg-blue-500 hover:bg-blue-400 hover:shadow-lg hover:shadow-blue-400/60;
 }
 
 .secondary {

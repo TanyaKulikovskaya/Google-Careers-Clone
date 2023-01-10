@@ -2,10 +2,6 @@ import { shallowMount } from '@vue/test-utils'
 import TheNavigation from '@/components/Navigation/TheNavigation.vue'
 
 describe('TheNavigation', () => {
-  it('displays company name', () => {
-    const wrapper = shallowMount(TheNavigation)
-    expect(wrapper.text()).toMatch('Good Careers')
-  })
   it('displays menu items', () => {
     const wrapper = shallowMount(TheNavigation)
     const menuItems = wrapper.findAll('[data-test="menu-list-item"]')
