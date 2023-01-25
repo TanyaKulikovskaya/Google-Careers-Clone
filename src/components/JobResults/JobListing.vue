@@ -1,22 +1,26 @@
 <template>
   <li class="mb-7">
     <router-link
-      to="/jobs/results/1"
+      :to="`/jobs/results/${jobPageLink}`"
       class="mx-auto block rounded border border-solid border-gray-300 bg-white"
     >
       <div class="mx-8 border-b border-solid border-gray-300 pt-5 pb-2">
         <h2 class="mb-2 text-2xl">
-          Technical Program Manager, Perception, Augmented Reality
+          {{ job.title }}
         </h2>
 
-        <div class="flex flex-row align-middle">
-          <div class="mr-5">
-            <span>Bobo</span>
-          </div>
+        <div class="flex flex-row align-middle justify-between">
+          <span>{{ job.organization }}</span>
 
-          <div>
-            <span>San Francisco, CA, USA</span>
-          </div>
+          <ul>
+            <li
+              v-for="(location, index) in job.locations"
+              :key="index"
+              class="px-2 inline-block text-sm"
+            >
+              {{ location }}
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -25,18 +29,21 @@
           <h3 class="mt-1 mb-2">Qualifications:</h3>
           <div>
             <ul class="list-disc pl-8">
-              <li>Bachelor's degree or equivalent practical experience.</li>
-              <li>5 years of experience in program management.</li>
-              <li>
-                Experience analyzing data through querying database (e.g., SQL)
-                using spreadsheet software, and creating statistical models.
+              <li
+                v-for="(qualification, index) in job.minimumQualifications"
+                :key="index"
+                class="text-sm"
+              >
+                {{ qualification }}
               </li>
             </ul>
           </div>
         </div>
 
         <div class="mt-2 text-center">
-          <router-link to="/jobs/results/1" class="text-blue-400"
+          <router-link
+            :to="`/jobs/results/${jobPageLink}`"
+            class="text-blue-400"
             >Expand</router-link
           >
         </div>
@@ -48,6 +55,17 @@
 <script>
 export default {
   name: 'JobListing',
+  props: {
+    job: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+    jobPageLink() {
+      return this.job.id
+    },
+  },
 }
 </script>
 
