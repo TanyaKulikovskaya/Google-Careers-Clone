@@ -1,11 +1,19 @@
 <template>
-  <h1 class="font-bold text-6xl tracking-tight py-10">Search Results</h1>
+  <div class="min-h-full flex w-full flex-row flex-nowrap">
+    <job-filters-sidebar />
+    <job-listings />
+  </div>
 </template>
 
 <script>
+import JobFiltersSidebar from '@/components/JobResults/JobFiltersSidebar.vue'
+import JobListings from '@/components/JobResults/JobListings.vue'
+
 export default {
   name: 'JobResultsView',
+  components: {
+    JobFiltersSidebar,
+    JobListings,
+  },
 }
 </script>
-
-<style></style>
