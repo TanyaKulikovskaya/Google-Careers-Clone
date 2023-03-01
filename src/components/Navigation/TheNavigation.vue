@@ -1,6 +1,6 @@
 <template>
   <header class="w-full" :class="isLoggedIn ? 'h-32' : 'h-16'">
-    <div class="fixed top-0 left-0 w-full bg-white">
+    <div class="bg-white">
       <nav
         class="flex items-center flex-nowrap h-16 px-8 py-2 border-b border-solid border-b-gray-300"
       >

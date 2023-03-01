@@ -1,11 +1,11 @@
 <template>
   <li class="mb-7">
     <router-link
-      :to="`/jobs/results/${jobPageLink}`"
+      :to="`/job/results/${jobPageLink}`"
       class="mx-auto block rounded border border-solid border-gray-300 bg-white"
     >
       <div class="mx-8 border-b border-solid border-gray-300 pt-5 pb-2">
-        <h2 class="mb-2 text-2xl">
+        <h2 class="mb-2 text-2xl text-sky-500">
           {{ job.title }}
         </h2>
 
@@ -41,9 +41,7 @@
         </div>
 
         <div class="mt-2 text-center">
-          <router-link
-            :to="`/jobs/results/${jobPageLink}`"
-            class="text-blue-400"
+          <router-link :to="`/job/results/${jobPageLink}`" class="text-blue-400"
             >Expand</router-link
           >
         </div>
