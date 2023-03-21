@@ -24,7 +24,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapState, mapActions } from 'pinia'
+import { useJobsStore } from '@/stores/jobs.js'
 import JobListing from '@/components/JobResults/JobListing.vue'
 
 export default {
@@ -32,12 +33,8 @@ export default {
   components: {
     JobListing,
   },
-  data() {
-    return {
-      jobs: [],
-    }
-  },
   computed: {
+    ...mapState(useJobsStore, ['jobs']),
     currentPage() {
       return Number.parseInt(this.$route.query.page || '1')
     },
@@ -58,13 +55,10 @@ export default {
     },
   },
   mounted() {
-    this.getData()
+    this.fetchJobs()
   },
   methods: {
-    async getData() {
-      const { data } = await axios.get('http://localhost:3000/jobs')
-      this.jobs = data
-    },
+    ...mapActions(useJobsStore, ['fetchJobs']),
   },
 }
 </script>

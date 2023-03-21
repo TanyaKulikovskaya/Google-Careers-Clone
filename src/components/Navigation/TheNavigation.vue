@@ -71,6 +71,8 @@
 import ActionButton from '@/components/Shared/ActionButton.vue'
 import ProfileAvatar from '@/components/Navigation/ProfileAvatar.vue'
 import SubNavigation from '@/components/Navigation/SubNavigation.vue'
+import { mapState, mapActions } from 'pinia'
+import { useUserStore } from '@/stores/user.js'
 
 export default {
   name: 'TheNavigation',
@@ -88,14 +90,14 @@ export default {
         { text: 'Students', url: '/' },
         { text: 'Jobs', url: '/job/results' },
       ],
-      isLoggedIn: false,
       showMenu: false,
     }
   },
+  computed: {
+    ...mapState(useUserStore, ['isLoggedIn']),
+  },
   methods: {
-    loginUser() {
-      this.isLoggedIn = true
-    },
+    ...mapActions(useUserStore, ['loginUser']),
     toggleMenu() {
       this.showMenu = !this.showMenu
     },
