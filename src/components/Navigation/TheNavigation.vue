@@ -84,8 +84,8 @@ export default {
   data() {
     return {
       menuItems: [
-        { text: 'Teams', url: '/' },
-        { text: 'Locations', url: '/' },
+        { text: 'Teams', url: '/teams' },
+        { text: 'Locations', url: '/locations' },
         { text: 'How we hire', url: '/' },
         { text: 'Students', url: '/' },
         { text: 'Jobs', url: '/job/results' },
