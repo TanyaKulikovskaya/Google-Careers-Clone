@@ -1,20 +1,17 @@
 <template>
   <hero-section />
   <spot-lights class="flex flex-row flex-wrap py-8">
-    <template #default="slotProps">
+    <template #default="{ img, title, description }">
       <router-link
         to="/job/results"
         class="m-4 flex flex-col rounded-lg bg-neutral-100 transform transition duration-300 hover:scale-105"
       >
-        <img
-          :src="slotProps.spotlight.img"
-          class="h-64 rounded-tl-lg rounded-tr-lg"
-        />
+        <img :src="img" class="h-64 rounded-tl-lg rounded-tr-lg" />
         <div class="mt-3 h-32 px-6 py-4">
           <h4 class="text-md mb-3 text-sky-500">
-            {{ slotProps.spotlight.title }}
+            {{ title }}
           </h4>
-          <p>{{ slotProps.spotlight.description }}</p>
+          <p>{{ description }}</p>
         </div>
       </router-link>
     </template>
