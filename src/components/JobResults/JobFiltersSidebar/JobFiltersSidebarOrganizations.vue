@@ -8,7 +8,14 @@
             :key="index"
             class="h-8 w-1/2"
           >
-            <input :id="organization" type="checkbox" class="mr-2" />
+            <input
+              :id="organization"
+              v-model="selectedOrganizations"
+              :value="organization"
+              type="checkbox"
+              class="mr-2"
+              @change="selectOrganization"
+            />
             <label :for="organization">{{ organization }}</label>
           </li>
         </ul>
@@ -18,7 +25,7 @@
 </template>
 
 <script>
-import { mapState } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import { useJobsStore } from '@/stores/jobs.js'
 
 import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
@@ -28,19 +35,21 @@ export default {
   components: {
     CollapsibleAccordion,
   },
+  data() {
+    return {
+      selectedOrganizations: [],
+    }
+  },
   computed: {
     ...mapState(useJobsStore, {
-      jobs: 'jobs',
-      organizations() {
-        return [
-          ...new Set(
-            this.jobs
-              .map((job) => job.organization)
-              .sort((a, b) => a.localeCompare(b))
-          ),
-        ]
-      },
+      organizations: 'uniqueOrganizations',
     }),
+  },
+  methods: {
+    ...mapActions(useJobsStore, ['addSelectedOrganizations']),
+    selectOrganization() {
+      this.addSelectedOrganizations(this.selectedOrganizations)
+    },
   },
 }
 </script>

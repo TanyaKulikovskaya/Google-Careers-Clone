@@ -3,16 +3,27 @@
     <div class="flex items-center h-full">
       <div v-if="onJobPage" data-test="job-count">
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
-        <span><span class="text-emerald-700">1980</span> jobs matched</span>
+        <span>
+          <span class="text-emerald-700">
+            {{ matchedJobsCount }}
+          </span>
+          jobs matched
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'pinia'
+import { useJobsStore } from '@/stores/jobs.js'
+
 export default {
   name: 'SubNavigation',
   computed: {
+    ...mapState(useJobsStore, {
+      matchedJobsCount: 'showedJobsCount',
+    }),
     onJobPage() {
       return this.$route.name === 'JobResults'
     },

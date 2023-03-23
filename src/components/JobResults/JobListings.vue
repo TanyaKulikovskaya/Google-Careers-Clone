@@ -34,7 +34,10 @@ export default {
     JobListing,
   },
   computed: {
-    ...mapState(useJobsStore, ['jobs']),
+    ...mapState(useJobsStore, {
+      jobs: 'showedJobs',
+      jobsCount: 'showedJobsCount',
+    }),
     currentPage() {
       return Number.parseInt(this.$route.query.page || '1')
     },
@@ -52,6 +55,14 @@ export default {
       const firstJobIndex = (pageNumber - 1) * 10
       const lastJobIndex = pageNumber * 10
       return this.jobs.slice(firstJobIndex, lastJobIndex)
+    },
+  },
+  watch: {
+    jobsCount() {
+      this.$router.push({
+        name: 'JobResults',
+        query: { page: '1' },
+      })
     },
   },
   mounted() {
