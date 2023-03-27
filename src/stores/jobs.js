@@ -5,6 +5,7 @@ export const useJobsStore = defineStore('jobs', {
   state: () => ({
     jobs: [],
     selectedOrganizations: [],
+    selectedJobTypes: [],
   }),
   getters: {
     uniqueOrganizations() {
@@ -16,15 +17,21 @@ export const useJobsStore = defineStore('jobs', {
         ),
       ]
     },
-    filteredByOraganizationJobs() {
-      return this.jobs.filter((item) =>
-        this.selectedOrganizations.includes(item.organization)
-      )
+    uniqueJobTypes() {
+      return [...new Set(this.jobs.map((job) => job.jobType))]
+    },
+    includeJobByOrganization: (state) => (job) => {
+      if (state.selectedOrganizations.length === 0) return true
+      return state.selectedOrganizations.includes(job.organization)
+    },
+    includeJobByJobType: (state) => (job) => {
+      if (state.selectedJobTypes.length === 0) return true
+      return state.selectedJobTypes.includes(job.jobType)
     },
     showedJobs() {
-      return this.selectedOrganizations.length > 0
-        ? this.filteredByOraganizationJobs
-        : this.jobs
+      return this.jobs
+        .filter((item) => this.includeJobByOrganization(item))
+        .filter((item) => this.includeJobByJobType(item))
     },
     showedJobsCount() {
       return this.showedJobs.length
@@ -37,6 +44,9 @@ export const useJobsStore = defineStore('jobs', {
     },
     addSelectedOrganizations(payload) {
       this.selectedOrganizations = payload
+    },
+    addSelectedJobTypes(payload) {
+      this.selectedJobTypes = payload
     },
   },
 })

@@ -25,6 +25,7 @@
       </div>
 
       <div class="px-8 py-4">
+        <h3>{{ job.jobType }}</h3>
         <div>
           <h3 class="mt-1 mb-2">Qualifications:</h3>
           <div>
