@@ -42,10 +42,10 @@ export const useJobsStore = defineStore('jobs', {
       const { data } = await axios.get('http://localhost:3000/jobs')
       this.jobs = data
     },
-    addSelectedOrganizations(payload) {
+    updateSelectedOrganizations(payload) {
       this.selectedOrganizations = payload
     },
-    addSelectedJobTypes(payload) {
+    updateSelectedJobTypes(payload) {
       this.selectedJobTypes = payload
     },
   },

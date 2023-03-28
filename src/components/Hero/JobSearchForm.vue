@@ -37,39 +37,30 @@
   </form>
 </template>
 
-<script>
+<script setup>
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+
 import TextInput from '@/components/Shared/TextInput.vue'
 import ActionButton from '@/components/Shared/ActionButton.vue'
 
-export default {
-  name: 'JobSearchForm',
-  components: {
-    ActionButton,
-    TextInput,
-  },
-  data() {
-    return {
-      form: {
-        role: '',
-        location: '',
-      },
-    }
-  },
-  methods: {
-    updateRole(value) {
-      this.form.role = value
-    },
-    updateLocation(value) {
-      this.form.location = value
-    },
-    searchJob() {
-      this.$router.push({
-        name: 'JobResults',
-        query: { role: this.form.role, location: this.form.location },
-      })
-    },
-  },
+const form = reactive({
+  role: '',
+  location: '',
+})
+
+const updateRole = (value) => {
+  form.role = value
+}
+const updateLocation = (value) => {
+  form.location = value
+}
+
+const router = useRouter()
+const searchJob = () => {
+  router.push({
+    name: 'JobResults',
+    query: { role: form.role, location: form.location },
+  })
 }
 </script>
-
-<style></style>

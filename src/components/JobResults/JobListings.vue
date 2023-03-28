@@ -6,7 +6,7 @@
     <div class="flex flex-row flex-nowrap py-2 px-4 justify-center">
       <router-link
         v-show="prevPage"
-        :to="{ name: JobResults, query: { page: prevPage } }"
+        :to="{ name: 'JobResults', query: { page: prevPage } }"
         class="mx-4 uppercase font-semibold text-sky-500 hover:text-sky-700"
       >
         Prev
@@ -14,7 +14,7 @@
       <span>{{ currentPage }}</span>
       <router-link
         v-show="nextPage"
-        :to="{ name: JobResults, query: { page: nextPage } }"
+        :to="{ name: 'JobResults', query: { page: nextPage } }"
         class="mx-4 uppercase font-semibold text-sky-500 hover:text-sky-700"
       >
         Next

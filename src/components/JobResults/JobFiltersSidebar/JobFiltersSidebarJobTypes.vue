@@ -42,9 +42,9 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(useJobsStore, ['addSelectedJobTypes']),
+    ...mapActions(useJobsStore, ['updateSelectedJobTypes']),
     selectJobTypes() {
-      this.addSelectedJobTypes(this.selectedJobTypes)
+      this.updateSelectedJobTypes(this.selectedJobTypes)
     },
   },
 }

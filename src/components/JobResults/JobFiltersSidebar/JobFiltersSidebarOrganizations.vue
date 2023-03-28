@@ -46,9 +46,9 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(useJobsStore, ['addSelectedOrganizations']),
+    ...mapActions(useJobsStore, ['updateSelectedOrganizations']),
     selectOrganization() {
-      this.addSelectedOrganizations(this.selectedOrganizations)
+      this.updateSelectedOrganizations(this.selectedOrganizations)
     },
   },
 }

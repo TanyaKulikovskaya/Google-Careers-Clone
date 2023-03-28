@@ -14,21 +14,18 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'pinia'
+<script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useJobsStore } from '@/stores/jobs.js'
 
-export default {
-  name: 'SubNavigation',
-  computed: {
-    ...mapState(useJobsStore, {
-      matchedJobsCount: 'showedJobsCount',
-    }),
-    onJobPage() {
-      return this.$route.name === 'JobResults'
-    },
-  },
-}
+const store = useJobsStore()
+const matchedJobsCount = computed(() => store.showedJobsCount)
+
+const route = useRoute()
+const onJobPage = computed(() => {
+  return route.name === 'JobResults'
+})
 </script>
 
 <style></style>
