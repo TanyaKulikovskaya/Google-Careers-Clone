@@ -3,7 +3,10 @@
     <ol>
       <job-listing v-for="job in displayedJobs" :key="job.id" :job="job" />
     </ol>
-    <div class="flex flex-row flex-nowrap py-2 px-4 justify-center">
+    <div
+      v-show="jobsCount > 0"
+      class="flex flex-row flex-nowrap py-2 px-4 justify-center"
+    >
       <router-link
         v-show="prevPage"
         :to="{ name: 'JobResults', query: { page: prevPage } }"
@@ -23,55 +26,49 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapActions } from 'pinia'
+<script setup>
+import { computed, onMounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+
 import { useJobsStore } from '@/stores/jobs.js'
+import usePrevAndNextPages from '@/composables/usePrevAndNextPages'
+
 import JobListing from '@/components/JobResults/JobListing.vue'
 
-export default {
-  name: 'JobListings',
-  components: {
-    JobListing,
-  },
-  computed: {
-    ...mapState(useJobsStore, {
-      jobs: 'showedJobs',
-      jobsCount: 'showedJobsCount',
-    }),
-    currentPage() {
-      return Number.parseInt(this.$route.query.page || '1')
-    },
-    prevPage() {
-      const prevPage = this.currentPage - 1
-      return prevPage >= 1 ? prevPage : null
-    },
-    nextPage() {
-      const nextPage = this.currentPage + 1
-      const lastPage = Math.ceil(this.jobs.length / 10)
-      return nextPage <= lastPage ? nextPage : null
-    },
-    displayedJobs() {
-      const pageNumber = this.currentPage
-      const firstJobIndex = (pageNumber - 1) * 10
-      const lastJobIndex = pageNumber * 10
-      return this.jobs.slice(firstJobIndex, lastJobIndex)
-    },
-  },
-  watch: {
-    jobsCount() {
-      this.$router.push({
-        name: 'JobResults',
-        query: { page: '1' },
-      })
-    },
-  },
-  mounted() {
-    this.fetchJobs()
-  },
-  methods: {
-    ...mapActions(useJobsStore, ['fetchJobs']),
-  },
-}
-</script>
+const store = useJobsStore()
+const jobs = computed(() => store.showedJobs)
 
-<style></style>
+const route = useRoute()
+const currentPage = computed(() => {
+  return Number.parseInt(route.query.page || '1')
+})
+
+const jobsCount = computed(() => store.showedJobsCount)
+const lastPage = computed(() => {
+  return Math.ceil(jobsCount.value / 10)
+})
+
+const { prevPage, nextPage } = usePrevAndNextPages(currentPage, lastPage)
+
+const displayedJobs = computed(() => {
+  const pageNumber = currentPage.value
+  const firstJobIndex = (pageNumber - 1) * 10
+  const lastJobIndex = pageNumber * 10
+  return jobs.value.slice(firstJobIndex, lastJobIndex)
+})
+
+const router = useRouter()
+watch(
+  () => jobsCount.value,
+  () => {
+    router.push({
+      name: 'JobResults',
+      query: { page: '1' },
+    })
+  }
+)
+
+onMounted(() => {
+  store.fetchJobs()
+})
+</script>

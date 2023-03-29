@@ -10,24 +10,16 @@
   </ul>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios'
+import { reactive, onMounted } from 'vue'
 
-export default {
-  name: 'SpotLights',
-  data() {
-    return {
-      spots: [],
-    }
-  },
-  mounted() {
-    this.fetchSpots()
-  },
-  methods: {
-    async fetchSpots() {
-      const { data } = await axios.get('http://localhost:3000/spotlights')
-      this.spots = data
-    },
-  },
+const spots = reactive([])
+const fetchSpots = async () => {
+  const { data } = await axios.get('http://localhost:3000/spotlights')
+  spots.push(...data)
 }
+onMounted(() => {
+  fetchSpots()
+})
 </script>

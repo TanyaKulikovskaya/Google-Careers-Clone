@@ -24,32 +24,18 @@
   </collapsible-accordion>
 </template>
 
-<script>
-import { mapState, mapActions } from 'pinia'
+<script setup>
+import { ref, computed } from 'vue'
 import { useJobsStore } from '@/stores/jobs.js'
-
 import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
 
-export default {
-  name: 'JobFiltersSidebarOrganizations',
-  components: {
-    CollapsibleAccordion,
-  },
-  data() {
-    return {
-      selectedOrganizations: [],
-    }
-  },
-  computed: {
-    ...mapState(useJobsStore, {
-      organizations: 'uniqueOrganizations',
-    }),
-  },
-  methods: {
-    ...mapActions(useJobsStore, ['updateSelectedOrganizations']),
-    selectOrganization() {
-      this.updateSelectedOrganizations(this.selectedOrganizations)
-    },
-  },
+const selectedOrganizations = ref([])
+
+const store = useJobsStore()
+
+const organizations = computed(() => store.uniqueOrganizations)
+
+const selectOrganization = () => {
+  store.updateSelectedOrganizations(selectedOrganizations.value)
 }
 </script>
