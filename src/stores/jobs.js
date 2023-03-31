@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { defineStore } from 'pinia'
+import getJobs from '@/api/getJobs'
 
 export const useJobsStore = defineStore('jobs', {
   state: () => ({
@@ -39,7 +39,7 @@ export const useJobsStore = defineStore('jobs', {
   },
   actions: {
     async fetchJobs() {
-      const { data } = await axios.get('http://localhost:3000/jobs')
+      const data = await getJobs()
       this.jobs = data
     },
     updateSelectedOrganizations(payload) {
