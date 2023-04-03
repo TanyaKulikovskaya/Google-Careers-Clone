@@ -72,7 +72,7 @@ import ActionButton from '@/components/Shared/ActionButton.vue'
 import ProfileAvatar from '@/components/Navigation/ProfileAvatar.vue'
 import SubNavigation from '@/components/Navigation/SubNavigation.vue'
 import { mapState, mapActions } from 'pinia'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.ts'
 
 export default {
   name: 'TheNavigation',

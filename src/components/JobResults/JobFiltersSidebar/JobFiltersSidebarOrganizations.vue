@@ -26,7 +26,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useJobsStore } from '@/stores/jobs.js'
+import { useJobsStore } from '@/stores/jobs.ts'
 import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
 
 const selectedOrganizations = ref([])

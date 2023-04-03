@@ -17,7 +17,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useJobsStore } from '@/stores/jobs.js'
+import { useJobsStore } from '@/stores/jobs.ts'
 
 const store = useJobsStore()
 const matchedJobsCount = computed(() => store.showedJobsCount)

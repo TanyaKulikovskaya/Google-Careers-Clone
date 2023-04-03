@@ -51,7 +51,7 @@
 
 <script>
 import { mapState } from 'pinia'
-import { useJobsStore } from '@/stores/jobs.js'
+import { useJobsStore } from '@/stores/jobs.ts'
 
 export default {
   name: 'JobView',

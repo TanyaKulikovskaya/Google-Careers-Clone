@@ -1,14 +1,22 @@
 import { defineStore } from 'pinia'
 import getJobs from '@/api/getJobs'
 
+import { Job } from '@/api/types'
+
+export interface JobsState {
+  jobs: Job[]
+  selectedOrganizations: string[]
+  selectedJobTypes: string[]
+}
+
 export const useJobsStore = defineStore('jobs', {
-  state: () => ({
+  state: (): JobsState => ({
     jobs: [],
     selectedOrganizations: [],
     selectedJobTypes: [],
   }),
   getters: {
-    uniqueOrganizations() {
+    uniqueOrganizations(): string[] {
       return [
         ...new Set(
           this.jobs
@@ -17,23 +25,23 @@ export const useJobsStore = defineStore('jobs', {
         ),
       ]
     },
-    uniqueJobTypes() {
+    uniqueJobTypes(): string[] {
       return [...new Set(this.jobs.map((job) => job.jobType))]
     },
-    includeJobByOrganization: (state) => (job) => {
+    includeJobByOrganization: (state) => (job: Job) => {
       if (state.selectedOrganizations.length === 0) return true
       return state.selectedOrganizations.includes(job.organization)
     },
-    includeJobByJobType: (state) => (job) => {
+    includeJobByJobType: (state) => (job: Job) => {
       if (state.selectedJobTypes.length === 0) return true
       return state.selectedJobTypes.includes(job.jobType)
     },
-    showedJobs() {
+    showedJobs(): Job[] {
       return this.jobs
         .filter((item) => this.includeJobByOrganization(item))
         .filter((item) => this.includeJobByJobType(item))
     },
-    showedJobsCount() {
+    showedJobsCount(): number {
       return this.showedJobs.length
     },
   },
@@ -42,10 +50,10 @@ export const useJobsStore = defineStore('jobs', {
       const data = await getJobs()
       this.jobs = data
     },
-    updateSelectedOrganizations(payload) {
+    updateSelectedOrganizations(payload: string[]) {
       this.selectedOrganizations = payload
     },
-    updateSelectedJobTypes(payload) {
+    updateSelectedJobTypes(payload: string[]) {
       this.selectedJobTypes = payload
     },
   },

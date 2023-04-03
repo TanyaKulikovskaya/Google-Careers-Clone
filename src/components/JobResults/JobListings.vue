@@ -30,7 +30,7 @@
 import { computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-import { useJobsStore } from '@/stores/jobs.js'
+import { useJobsStore } from '@/stores/jobs.ts'
 import usePrevAndNextPages from '@/composables/usePrevAndNextPages'
 
 import JobListing from '@/components/JobResults/JobListing.vue'
