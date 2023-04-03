@@ -39,7 +39,11 @@ export default {
           { value: 'Create', class: 'text-yellow-600' },
           { value: 'Code', class: 'text-emerald-600' },
         ]
-        this.action = nextItemInList(actions, this.action.value)
+        const nextAction = nextItemInList(
+          actions.map((action) => action.value),
+          this.action.value
+        )
+        this.action = actions.filter((action) => action.value === nextAction)[0]
       }, 5000)
     },
   },
