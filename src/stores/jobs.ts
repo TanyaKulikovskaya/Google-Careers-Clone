@@ -56,5 +56,10 @@ export const useJobsStore = defineStore('jobs', {
     updateSelectedJobTypes(payload: string[]) {
       this.selectedJobTypes = payload
     },
+    clearSelectedFilters() {
+      const store = useJobsStore()
+      store.updateSelectedOrganizations([])
+      store.updateSelectedJobTypes([])
+    },
   },
 })
