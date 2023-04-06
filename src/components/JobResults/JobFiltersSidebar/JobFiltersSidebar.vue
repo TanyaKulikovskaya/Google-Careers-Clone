@@ -13,6 +13,11 @@
           />
         </div>
       </div>
+      <text-input
+        v-model.trim="searchRole"
+        class="my-2 px-2 h-10 rounded border border-gray-300 focus:border-blue-500"
+        placeholder="Role"
+      />
       <collapsible-accordion header="Organizations">
         <job-filters-sidebar-organizations />
       </collapsible-accordion>
@@ -25,9 +30,11 @@
 
 <script setup>
 import ActionButton from '@/components/Shared/ActionButton.vue'
+import TextInput from '@/components/Shared/TextInput.vue'
 import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
 import JobFiltersSidebarOrganizations from '@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarOrganizations.vue'
 import JobFiltersSidebarJobTypes from '@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarJobTypes.vue'
+import { computed } from 'vue'
 
 import { useJobsStore } from '@/stores/jobs.ts'
 
@@ -36,4 +43,13 @@ const store = useJobsStore()
 const clearFilters = () => {
   store.clearSelectedFilters()
 }
+
+const searchRole = computed({
+  get() {
+    return store.searchTerm.role
+  },
+  set(value) {
+    store.updateSearchRole(value)
+  },
+})
 </script>

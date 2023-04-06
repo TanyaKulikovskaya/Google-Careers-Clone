@@ -1,5 +1,10 @@
 <template>
-  <button :class="type" @click.prevent="handleClick">
+  <button
+    :class="type"
+    class="disabled:opacity-70"
+    :disabled="disabled"
+    @click.prevent="handleClick"
+  >
     {{ text }}
   </button>
 </template>
@@ -19,6 +24,11 @@ export default {
       validator(value) {
         return ['primary', 'secondary'].includes(value)
       },
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   emits: ['click'],

@@ -3,10 +3,15 @@ import getJobs from '@/api/getJobs'
 
 import { Job } from '@/api/types'
 
+export interface SearchTerm {
+  role: string
+  location: string
+}
 export interface JobsState {
   jobs: Job[]
   selectedOrganizations: string[]
   selectedJobTypes: string[]
+  searchTerm: SearchTerm
 }
 
 export const useJobsStore = defineStore('jobs', {
@@ -14,6 +19,10 @@ export const useJobsStore = defineStore('jobs', {
     jobs: [],
     selectedOrganizations: [],
     selectedJobTypes: [],
+    searchTerm: {
+      role: '',
+      location: '',
+    },
   }),
   getters: {
     uniqueOrganizations(): string[] {
@@ -36,10 +45,29 @@ export const useJobsStore = defineStore('jobs', {
       if (state.selectedJobTypes.length === 0) return true
       return state.selectedJobTypes.includes(job.jobType)
     },
+    includeJobBySearchTerm: (state) => (job: Job) => {
+      if (state.searchTerm.role === '' && state.searchTerm.location === '')
+        return true
+      else if (
+        state.searchTerm.role !== '' &&
+        state.searchTerm.location === ''
+      ) {
+        return job.title
+          .toLowerCase()
+          .includes(state.searchTerm.role.toLowerCase())
+      }
+      return (
+        job.title.toLowerCase().includes(state.searchTerm.role.toLowerCase()) &&
+        job.locations
+          .map((location) => location.toLowerCase())
+          .includes(state.searchTerm.location.toLowerCase())
+      )
+    },
     showedJobs(): Job[] {
       return this.jobs
         .filter((item) => this.includeJobByOrganization(item))
         .filter((item) => this.includeJobByJobType(item))
+        .filter((item) => this.includeJobBySearchTerm(item))
     },
     showedJobsCount(): number {
       return this.showedJobs.length
@@ -60,6 +88,16 @@ export const useJobsStore = defineStore('jobs', {
       const store = useJobsStore()
       store.updateSelectedOrganizations([])
       store.updateSelectedJobTypes([])
+      store.updateSearchTerm({
+        role: '',
+        location: '',
+      })
+    },
+    updateSearchTerm(payload: SearchTerm) {
+      this.searchTerm = payload
+    },
+    updateSearchRole(payload: string) {
+      this.searchTerm.role = payload
     },
   },
 })

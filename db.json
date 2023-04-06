@@ -1857,7 +1857,12 @@
       "organization": "Vue and a Half Men",
       "degree": "Master's",
       "jobType": "Part-time",
-      "locations": ["Los Angeles", "Mexico City", "Fort Lauderdale"],
+      "locations": [
+        "Los Angeles",
+        "Mexico City",
+        "Fort Lauderdale",
+        "Barcelona"
+      ],
       "minimumQualifications": [
         "Expedite global partnerships, leverage scalable portals, and monetize visionary convergence",
         "Incentivize bricks-and-clicks users, optimize distributed technologies, and transition out-of-the-box ROI",
@@ -2492,7 +2497,13 @@
       "organization": "Point of Vue",
       "degree": "Pursuing Degree",
       "jobType": "Temporary",
-      "locations": ["Vancouver", "Cincinnati", "Bangkok", "São Paulo"],
+      "locations": [
+        "Vancouver",
+        "Cincinnati",
+        "Bangkok",
+        "São Paulo",
+        "Barcelona"
+      ],
       "minimumQualifications": [
         "E-enable strategic architectures, expedite 24/365 solutions, and seize visionary web-readiness",
         "Whiteboard user-centric portals, incubate killer solutions, and expedite customized content",

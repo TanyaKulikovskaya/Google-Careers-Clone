@@ -1,6 +1,6 @@
 <template>
   <input
-    :value="value"
+    :value="modelValue"
     :placeholder="placeholder"
     type="text"
     class="w-full font-normal focus:outline-none"
@@ -12,9 +12,10 @@
 export default {
   name: 'TextInput',
   props: {
-    value: {
+    modelValue: {
       type: String,
       required: true,
+      default: '',
     },
     placeholder: {
       type: String,
@@ -22,13 +23,11 @@ export default {
       default: '',
     },
   },
-  emits: ['input'],
+  emits: ['update:modelValue'],
   methods: {
     handleInput(e) {
-      this.$emit('input', e.target.value)
+      this.$emit('update:modelValue', e.target.value)
     },
   },
 }
 </script>
-
-<style></style>
